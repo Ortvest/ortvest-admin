@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src/",
+    "paths": {
+      "@public/*": ["../public/*"],
+      "@global/*": ["./global/*"],
+      "@modules/*": ["./modules/*"],
+      "@shared/*": ["./shared/*"],
+      "@providers/*": ["./providers/*"]
+    }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}
