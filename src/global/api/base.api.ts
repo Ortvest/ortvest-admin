@@ -23,13 +23,13 @@ const baseQueryWithRetry: BaseQueryFn<
   },
 });
 
-export const baseApi: BaseApiType = createApi({
-  reducerPath: "splitApi",
-  baseQuery: baseQueryWithRetry,
-  tagTypes: ["Time", "Posts", "Counter"],
-  endpoints: () => ({}),
-});
+// export const baseApi: BaseApiType = createApi({
+//   reducerPath: "splitApi",
+//   baseQuery: baseQueryWithRetry,
+//   tagTypes: ["Time", "Posts", "Counter"],
+//   endpoints: () => ({}),
+// });
 
-export const enhancedApi: BaseApiType = baseApi.enhanceEndpoints({
-  endpoints: () => ({}),
-});
+// export const enhancedApi: BaseApiType = baseApi.enhanceEndpoints({
+//   endpoints: () => ({}),
+// });
