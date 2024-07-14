@@ -10,14 +10,18 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { customTheme } from "../../../providers/theme";
+import { useAppDispatch } from "../../../shared/hooks/redux.hooks";
+import { AuthSlice } from "../../../global/store/slices/AuthSlice";
+import { ModalProps } from "../../../shared/interfaces/Modal.interfaces";
 
-interface LoginModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-export const LoginModal = ({ isOpen, onClose }: LoginModalProps) => {
+export const LoginModal = ({ isOpen, onClose }: ModalProps) => {
+	const dispatch = useAppDispatch()
+	const onLogin = () => {
+		dispatch(AuthSlice.actions.setIsAuth(true))
+	}
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+	onLogin()
     onClose();
   };
   return (

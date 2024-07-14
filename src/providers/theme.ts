@@ -2,12 +2,14 @@ export const customTheme = {
   colors: {
     transparent: "transparent",
     black: "#222",
+    lightBlack: "#3A3A3A",
     white: "#fff",
     gray: {
-      50: "#f7fafc",
+      50: "#EBEBEB",
 
       900: "#171923",
     },
+    yellow: "#FEC73B",
   },
   fontSizes: {
     xs: "0.75rem",

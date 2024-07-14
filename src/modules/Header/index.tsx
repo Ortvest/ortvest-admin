@@ -2,9 +2,12 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import {customTheme} from "../../providers/theme.ts";
 import { Login } from "./features/Login/index.tsx";
 import { useAppSelector } from "../../shared/hooks/redux.hooks.ts";
+import { Logout } from "./features/Logout/index.tsx";
 
 export const Header = () => {
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
+
+
   return (
     <Flex
       alignItems={"center"}
@@ -23,7 +26,9 @@ export const Header = () => {
           Ortvest Admin
         </Text>
       </Box>
-      <Box>{!isAuthenticated ? <Login /> : null}</Box>
+     <Box>
+        {isAuthenticated ? <Logout /> : <Login />}
+    </Box>
     </Flex>
   );
 };

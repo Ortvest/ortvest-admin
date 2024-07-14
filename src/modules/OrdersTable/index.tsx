@@ -1,92 +1,86 @@
-import { Table, Thead, Tbody, Tr, Th, Td, Box } from "@chakra-ui/react";
-import { useMemo } from "react";
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  Box,
+  useDisclosure,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList
+} from "@chakra-ui/react";
+import { useState } from "react";
 import { customTheme } from "../../providers/theme";
+import { OrderModal } from "../Modals/Order";
+import { useAppSelector } from "../../shared/hooks/redux.hooks";
+import { FiMoreVertical } from "react-icons/fi";
 
 export const OrdersTable = () => {
-  const data = [
-    {
-      id: 1,
-      clientName: "L&K Work",
-      clientEmail: "lk@gmail.com",
-      selectedServices: ["Web app", "Mobile app", "Design"],
-      productDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quod dicta officia? Veniam corrupti rem voluptas fugit ratione illo modi est neque! Esse ad voluptatibus, modi commodi cum est deleniti.",
-    },
-    {
-      id: 2,
-      clientName: "L&K Work",
-      clientEmail: "lk@gmail.com",
-      selectedServices: ["Web app", "Mobile app", "Design"],
-      productDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quod dicta officia? Veniam corrupti rem voluptas fugit ratione illo modi est neque! Esse ad voluptatibus, modi commodi cum est deleniti.",
-    },
-    {
-      id: 3,
-      clientName: "L&K Work",
-      clientEmail: "lk@gmail.com",
-      selectedServices: ["Web app", "Mobile app", "Design"],
-      productDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quod dicta officia? Veniam corrupti rem voluptas fugit ratione illo modi est neque! Esse ad voluptatibus, modi commodi cum est deleniti.",
-    },
-    {
-      id: 4,
-      clientName: "L&K Work",
-      clientEmail: "lk@gmail.com",
-      selectedServices: ["Web app", "Mobile app", "Design"],
-      productDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quod dicta officia? Veniam corrupti rem voluptas fugit ratione illo modi est neque! Esse ad voluptatibus, modi commodi cum est deleniti.",
-    },
-    {
-      id: 5,
-      clientName: "L&K Work",
-      clientEmail: "lk@gmail.com",
-      selectedServices: ["Web app", "Mobile app", "Design"],
-      productDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam quod dicta officia? Veniam corrupti rem voluptas fugit ratione illo modi est neque! Esse ad voluptatibus, modi commodi cum est deleniti.",
-    },
-  ];
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedOrderId, setSelectedOrderId] = useState<string>("");
 
-  const filteredData = useMemo(() => {
-    return data.map((item) => {
-      return Object.entries(item).filter((value) => {
-        return (
-          value[0] === "clientEmail" ||
-          value[0] === "clientName" ||
-          value[0] === "id"
-        );
-      });
-    });
-  }, [data]);
+  const { allOrders } = useAppSelector((state) => state.orderReducer);
 
-  console.log(filteredData);
+  const onOpenOrder = (id: string) => {
+    setSelectedOrderId(id);
+    onOpen();
+  };
+
+  const handleMenuClick = (event: { stopPropagation: () => void; }) => {
+    event.stopPropagation();
+  };
+
   return (
-    <Box p={4}>
-      <Table variant="simple">
+    <Box display="flex" justifyContent="center" w={'100%'} p={4}>
+      <Table variant="simple" h={70}>
         <Thead>
           <Tr>
             <Th>Order id</Th>
             <Th>Client Name</Th>
             <Th>Client Email</Th>
+            <Th>Status</Th>
+            <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((client, index) => (
+          {allOrders.map((client, index) => (
             <Tr
+              key={index}
               _hover={{
                 backgroundColor: customTheme.colors.gray[50],
                 cursor: "pointer",
-                transition: "0.3 ease-in-out",
+                transition: "0.3s ease-in-out",
               }}
-              onClick={() => alert(client.clientEmail)}
-              key={index}
+              onClick={() => onOpenOrder(client.id)}
             >
-              <Td>{client.id}</Td>
-              <Td>{client.clientName}</Td>
-              <Td>{client.clientEmail}</Td>
+              <Td w={300}>{client.id}</Td>
+              <Td w={300}>{client.clientName}</Td>
+              <Td w={300}>{client.clientEmail}</Td>
+              <Td w={300}>{client.status}</Td>
+              <Td w={50}>
+                <Menu>
+                  <MenuButton
+                    as={IconButton}
+                    icon={<FiMoreVertical />}
+                    variant="outline"
+                    borderRadius={'100%'}
+                    size="sm"
+                    onClick={handleMenuClick}
+                  />
+                  <MenuList onClick={handleMenuClick}>
+                    <MenuItem onClick={() => console.log(client.id)}>Update status</MenuItem>
+                  </MenuList>
+                </Menu>
+              </Td>
             </Tr>
           ))}
         </Tbody>
       </Table>
+      <OrderModal isOpen={isOpen} onClose={onClose} orderId={selectedOrderId} />
     </Box>
   );
 };
