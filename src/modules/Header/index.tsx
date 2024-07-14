@@ -23,7 +23,7 @@ export const Header = () => {
           fontSize={customTheme.fontSizes["3xl"]}
           color={customTheme.colors.white}
         >
-          Ortvest Admin
+          Ortvest Team Admin
         </Text>
       </Box>
      <Box>
