@@ -2,17 +2,12 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  FormControl,
-  FormLabel,
-  Input,
-  Button,
   ModalBody,
   Text,
   Box,
   Divider,
   Stack,
 } from "@chakra-ui/react";
-import { customTheme } from "../../../providers/theme";
 import {
   useAppDispatch,
   useAppSelector,

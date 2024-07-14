@@ -1,6 +1,4 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { baseApi } from "./base.api";
-const baseUrl = import.meta.env.VITE_NEST_BACKEND_APP;
 
 export const pokemonApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080" }),
@@ -17,7 +15,7 @@ export const pokemonApi = createApi({
         },
       }),
 
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      async onQueryStarted(_, { queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           console.log(data);

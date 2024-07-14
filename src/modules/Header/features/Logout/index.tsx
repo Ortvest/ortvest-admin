@@ -1,9 +1,7 @@
 import {
-  Button,
-  useDisclosure,
+  Button
   
 } from "@chakra-ui/react";
-import { LoginModal } from "../../../Modals/Login";
 import { useAppDispatch } from "../../../../shared/hooks/redux.hooks";
 import { AuthSlice } from "../../../../global/store/slices/AuthSlice";
 
