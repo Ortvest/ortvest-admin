@@ -5,7 +5,7 @@ import { AppRoute } from "../../shared/interfaces/App.interfaces";
 import { useEffect, useState } from "react";
 export const AppRouter = () => {
   const { isAuthenticated } = useAppSelector((state) => state.authReducer);
-  const [routesToRender, setRoutesToRender] = useState<AppRoute[]>([]);
+  const [_, setRoutesToRender] = useState<AppRoute[]>([]);
 
   useEffect(() => {
     if (isAuthenticated) {
