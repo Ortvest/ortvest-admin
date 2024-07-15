@@ -1,8 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-const baseUrl = import.meta.env.VITE_NEST_BACKEND_APP;
+import axios from "axios";
 
-export const baseApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl }),
-  endpoints: () => ({}),
-  tagTypes: ["Products"],
+const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+export const baseApi = axios.create({
+  baseURL: "https://ortvest-website-backend.vercel.app/",
+  withCredentials: true,
+  headers: {
+    "Allow-Control-Allow-Origin": "*",
+    Authorization: `Bearer ${accessToken}`,
+  },
 });

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../../../shared/interfaces/Auth.interfaces";
 
 const initialState: AuthState = {
-  isAuthenticated: true,
+  isAuthenticated: false,
 };
 
 export const AuthSlice = createSlice({

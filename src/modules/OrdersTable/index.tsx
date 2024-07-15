@@ -13,11 +13,12 @@ import {
   MenuItem,
   MenuList
 } from "@chakra-ui/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { customTheme } from "../../providers/theme";
 import { OrderModal } from "../Modals/Order";
 import { useAppSelector } from "../../shared/hooks/redux.hooks";
 import { FiMoreVertical } from "react-icons/fi";
+import { ordersApi } from "../../global/api/orders.api";
 
 export const OrdersTable = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -33,6 +34,12 @@ export const OrdersTable = () => {
   const handleMenuClick = (event: { stopPropagation: () => void; }) => {
     event.stopPropagation();
   };
+
+  useEffect(() => {
+	ordersApi.getOrders().then((data) => {
+		console.log(data);
+	})
+  }, [])
 
   return (
     <Box display="flex" justifyContent="center" w={'100%'} p={4}>
