@@ -6,7 +6,6 @@ export const baseApi = axios.create({
   baseURL: backendUrl,
   withCredentials: true,
   headers: {
-    "Allow-Control-Allow-Origin": "*",
     Authorization: `Bearer ${accessToken}`,
   },
 });
