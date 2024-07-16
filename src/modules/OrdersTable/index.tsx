@@ -35,7 +35,9 @@ export const OrdersTable = () => {
     event.stopPropagation();
   };
 
- 
+  useEffect(() => {
+	ordersApi.getOrders()
+  }, [])
 
   return (
     <Box display="flex" justifyContent="center" w={'100%'} p={4}>
