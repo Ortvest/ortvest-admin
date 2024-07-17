@@ -8,9 +8,5 @@ export const baseApi = axios.create({
   headers: {
     Authorization: `Bearer ${accessToken}`,
     "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": backendUrl,
-    "Access-Control-Allow-Headers": "Authorization, X-Custom-Header",
-    "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT",
-    mode: "cors",
   },
 });
