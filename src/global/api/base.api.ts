@@ -8,5 +8,6 @@ export const baseApi = axios.create({
   headers: {
     Authorization: `Bearer ${accessToken}`,
     "Content-Type": "application/json",
+    "Allow-Control-Allow-Origin": "https://ortvest-website-backend.vercel.app/",
   },
 });
