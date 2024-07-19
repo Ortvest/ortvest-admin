@@ -6,8 +6,7 @@ export const ordersApi = {
       .get("orders/all", {
         headers: {
           "Content-Type": "application/json",
-          //   "Allow-Control-Allow-Origin":
-          //     "https://ortvest-website-backend.vercel.app/",
+          "Allow-Control-Allow-Origin": "http://localhost:8080",
         },
       })
       .then((response) => console.log("response", response));

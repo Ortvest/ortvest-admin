@@ -11,7 +11,7 @@ import {
   Menu,
   MenuButton,
   MenuItem,
-  MenuList
+  MenuList,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { customTheme } from "../../providers/theme";
@@ -19,6 +19,10 @@ import { OrderModal } from "../Modals/Order";
 import { useAppSelector } from "../../shared/hooks/redux.hooks";
 import { FiMoreVertical } from "react-icons/fi";
 import { ordersApi } from "../../global/api/orders.api";
+import axios from "axios";
+
+const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+const backendUrl = import.meta.env.VITE_BACKEND_APP;
 
 export const OrdersTable = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -31,16 +35,24 @@ export const OrdersTable = () => {
     onOpen();
   };
 
-  const handleMenuClick = (event: { stopPropagation: () => void; }) => {
+  const handleMenuClick = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
   };
 
   useEffect(() => {
-	ordersApi.getOrders()
-  }, [])
+    axios.get(`${backendUrl}/orders/all`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+        mode: "cors",
+      },
+    }).then(() => {
+		console.log("SUCCESS")
+	});
+  }, []);
 
   return (
-    <Box display="flex" justifyContent="center" w={'100%'} p={4}>
+    <Box display="flex" justifyContent="center" w={"100%"} p={4}>
       <Table variant="simple" h={70}>
         <Thead>
           <Tr>
@@ -72,12 +84,14 @@ export const OrdersTable = () => {
                     as={IconButton}
                     icon={<FiMoreVertical />}
                     variant="outline"
-                    borderRadius={'100%'}
+                    borderRadius={"100%"}
                     size="sm"
                     onClick={handleMenuClick}
                   />
                   <MenuList onClick={handleMenuClick}>
-                    <MenuItem onClick={() => console.log(client.id)}>Update status</MenuItem>
+                    <MenuItem onClick={() => console.log(client.id)}>
+                      Update status
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </Td>
