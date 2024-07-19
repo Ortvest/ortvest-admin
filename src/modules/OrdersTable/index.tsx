@@ -16,14 +16,16 @@ import {
 import { useEffect, useState } from "react";
 import { customTheme } from "../../providers/theme";
 import { OrderModal } from "../Modals/Order";
-import { useAppSelector } from "../../shared/hooks/redux.hooks";
+import { useAppDispatch, useAppSelector } from "../../shared/hooks/redux.hooks";
 import { FiMoreVertical } from "react-icons/fi";
 import axios from "axios";
+import { OrderSlice } from "../../global/store/slices/OrdersSlice";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
 const backendUrl = import.meta.env.VITE_BACKEND_APP;
 
 export const OrdersTable = () => {
+  const dispatch = useAppDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedOrderId, setSelectedOrderId] = useState<string>("");
 
@@ -38,16 +40,25 @@ export const OrdersTable = () => {
     event.stopPropagation();
   };
 
+  const getOrders = async () => {
+    await axios
+      .get(`${backendUrl}/orders/all`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+          mode: "cors",
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          const allOrders = response.data;
+          dispatch(OrderSlice.actions.setAllOrders(allOrders));
+        }
+      })
+      .catch((err) => console.error(err));
+  };
   useEffect(() => {
-    axios.get(`${backendUrl}/orders/all`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json",
-        mode: "cors",
-      },
-    }).then(() => {
-		console.log("SUCCESS")
-	});
+    getOrders();
   }, []);
 
   return (
@@ -63,7 +74,7 @@ export const OrdersTable = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {allOrders.map((client, index) => (
+          {allOrders.map((order, index) => (
             <Tr
               key={index}
               _hover={{
@@ -71,12 +82,12 @@ export const OrdersTable = () => {
                 cursor: "pointer",
                 transition: "0.3s ease-in-out",
               }}
-              onClick={() => onOpenOrder(client.id)}
+              onClick={() => onOpenOrder(order._id)}
             >
-              <Td w={300}>{client.id}</Td>
-              <Td w={300}>{client.clientName}</Td>
-              <Td w={300}>{client.clientEmail}</Td>
-              <Td w={300}>{client.status}</Td>
+              <Td w={300}>{order._id}</Td>
+              <Td w={300}>{order.clientName}</Td>
+              <Td w={300}>{order.clientEmail}</Td>
+              <Td w={300}>{order.status || "None"}</Td>
               <Td w={50}>
                 <Menu>
                   <MenuButton
@@ -88,7 +99,7 @@ export const OrdersTable = () => {
                     onClick={handleMenuClick}
                   />
                   <MenuList onClick={handleMenuClick}>
-                    <MenuItem onClick={() => console.log(client.id)}>
+                    <MenuItem onClick={() => console.log(order._id)}>
                       Update status
                     </MenuItem>
                   </MenuList>

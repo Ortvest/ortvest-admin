@@ -4,7 +4,7 @@ export interface OrdersState {
 }
 
 export interface Order {
-  id: string;
+  _id: string;
   clientEmail: string;
   clientName: string;
   selectedServices?: string[];

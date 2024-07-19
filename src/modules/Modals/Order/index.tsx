@@ -44,7 +44,7 @@ export const OrderModal = ({ isOpen, onClose, orderId }: OrderModalProps) => {
       <Stack spacing={3}>
         <Box>
           <Text fontWeight="bold">Order ID:</Text>
-          <Text>{selectedOrder?.id}</Text>
+          <Text>{selectedOrder?._id}</Text>
         </Box>
         <Divider />
         <Box>
@@ -59,7 +59,7 @@ export const OrderModal = ({ isOpen, onClose, orderId }: OrderModalProps) => {
         <Divider />
         <Box>
           <Text fontWeight="bold">Status:</Text>
-          <Text>{selectedOrder?.status}</Text>
+          <Text>{selectedOrder?.status || "None"}</Text>
         </Box>
         <Divider />
         <Box>

@@ -8,6 +8,7 @@ import { AuthSlice } from "../../../../global/store/slices/AuthSlice";
 export const Logout = () => {
 	const dispatch = useAppDispatch()
 	const onLogout = () => {
+		localStorage.removeItem("access_token")
 		dispatch(AuthSlice.actions.setIsAuth(false))
 	}
   return (
