@@ -18,7 +18,6 @@ import { customTheme } from "../../providers/theme";
 import { OrderModal } from "../Modals/Order";
 import { useAppSelector } from "../../shared/hooks/redux.hooks";
 import { FiMoreVertical } from "react-icons/fi";
-import { ordersApi } from "../../global/api/orders.api";
 import axios from "axios";
 
 const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
