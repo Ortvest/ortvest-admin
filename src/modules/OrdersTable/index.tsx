@@ -10,19 +10,15 @@ import {
   IconButton,
   Menu,
   MenuButton,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { customTheme } from "../../providers/theme";
 import { OrderModal } from "../Modals/Order";
 import { useAppDispatch, useAppSelector } from "../../shared/hooks/redux.hooks";
 import { FiMoreVertical } from "react-icons/fi";
-import axios from "axios";
-import { OrderSlice } from "../../global/store/slices/OrdersSlice";
+import { ActionMenu } from "./ActionMenu";
+import { getOrders } from "../../global/api/orders.api";
 
-const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
-const backendUrl = import.meta.env.VITE_BACKEND_APP;
 
 export const OrdersTable = () => {
   const dispatch = useAppDispatch();
@@ -40,25 +36,9 @@ export const OrdersTable = () => {
     event.stopPropagation();
   };
 
-  const getOrders = async () => {
-    await axios
-      .get(`${backendUrl}/orders/all`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
-          mode: "cors",
-        },
-      })
-      .then((response) => {
-        if (response.data) {
-          const allOrders = response.data;
-          dispatch(OrderSlice.actions.setAllOrders(allOrders));
-        }
-      })
-      .catch((err) => console.error(err));
-  };
+
   useEffect(() => {
-    getOrders();
+    getOrders(dispatch);
   }, []);
 
   return (
@@ -98,11 +78,7 @@ export const OrdersTable = () => {
                     size="sm"
                     onClick={handleMenuClick}
                   />
-                  <MenuList onClick={handleMenuClick}>
-                    <MenuItem onClick={() => console.log(order._id)}>
-                      Update status
-                    </MenuItem>
-                  </MenuList>
+                  <ActionMenu orderId={order._id}/>
                 </Menu>
               </Td>
             </Tr>
@@ -113,3 +89,5 @@ export const OrdersTable = () => {
     </Box>
   );
 };
+
+

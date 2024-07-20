@@ -10,6 +10,7 @@ export const customTheme = {
       900: "#171923",
     },
     yellow: "#FEC73B",
+    red: "#C12222",
   },
   fontSizes: {
     xs: "0.75rem",
