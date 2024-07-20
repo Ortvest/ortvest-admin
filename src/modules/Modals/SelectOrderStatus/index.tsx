@@ -4,8 +4,6 @@ import {
   ModalContent,
   ModalBody,
   Text,
-  Box,
-  Divider,
   Stack,
   Button,
 } from "@chakra-ui/react";
@@ -15,9 +13,6 @@ import {
 } from "../../../shared/hooks/redux.hooks";
 
 import { ModalProps } from "../../../shared/interfaces/Modal.interfaces";
-import { OrderSlice } from "../../../global/store/slices/OrdersSlice";
-import { useEffect } from "react";
-import axios from "axios";
 import { updateOrderStatus } from "../../../global/api/orders.api";
 import { OrderStatus } from "../../../shared/interfaces/Orders.interfaces";
 
