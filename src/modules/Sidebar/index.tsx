@@ -15,7 +15,7 @@ export const Sidebar = () => {
         p={4}
       >
         <nav>
-          <List spacing={5}>
+          <List spacing={5} h={'100%'}>
             {routesList.map((route, index) => {
               const Icon = route.previewIcon;
               const isActive = location.pathname === route.path;
